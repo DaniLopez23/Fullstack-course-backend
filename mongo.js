@@ -13,7 +13,7 @@ const password = process.argv[2];
 const name = process.argv[3];
 const number = process.argv[4];
 
-const url = `mongodb+srv://danisport8:${password}@fullstack-course-db.peyksb0.mongodb.net/?retryWrites=true&w=majority&appName=Fullstack-course-db`;
+const url = `mongodb+srv://danisport8:${password}@fullstack-course-db.peyksb0.mongodb.net/peopleDB?retryWrites=true&w=majority&appName=Fullstack-course-db`;
 
 mongoose.set("strictQuery", false);
 
