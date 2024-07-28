@@ -12,13 +12,24 @@ mongoose.set('strictQuery', false)
 
 logger.info('connecting to', config.MONGODB_URI)
 
-mongoose.connect(config.MONGODB_URI)
-  .then(() => {
+const connection = async () => {
+  try {
+    await mongoose.connect(config.MONGODB_URI)
     logger.info('connected to MongoDB')
-  })
-  .catch((error) => {
+  } catch (error) {
     logger.error('error connecting to MongoDB:', error.message)
-  })
+  }
+}
+
+connection()
+
+// mongoose.connect(config.MONGODB_URI)
+//   .then(() => {
+//     logger.info('connected to MongoDB')
+//   })
+//   .catch((error) => {
+//     logger.error('error connecting to MongoDB:', error.message)
+//   })
 
 app.use(cors())
 app.use(express.json())
