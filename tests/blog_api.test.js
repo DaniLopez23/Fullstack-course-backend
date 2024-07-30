@@ -12,16 +12,20 @@ const api = supertest(app);
 
 beforeEach(async () => {
   await Blog.deleteMany({});
+  await User.deleteMany({});
   const noteObjects = helper.initialBlogs.map((blog) => new Blog(blog));
-  const promiseArray = noteObjects.map((blog) => blog.save());
+  const userObjects = helper.initialUsers.map((user) => new User(user));
+  const promiseArray = userObjects.map((user) => user.save()).concat(noteObjects.map((blog) => blog.save()));
   await Promise.all(promiseArray);
 });
 
 describe("tests GET /api/blogs", () => {
   beforeEach(async () => {
     await Blog.deleteMany({});
+    await User.deleteMany({});
     const noteObjects = helper.initialBlogs.map((blog) => new Blog(blog));
-    const promiseArray = noteObjects.map((blog) => blog.save());
+    const userObjects = helper.initialUsers.map((user) => new User(user));
+    const promiseArray = userObjects.map((user) => user.save()).concat(noteObjects.map((blog) => blog.save()));
     await Promise.all(promiseArray);
   });
 
@@ -47,8 +51,10 @@ describe("tests GET /api/blogs", () => {
 describe("tests POST /api/blogs", () => {
   beforeEach(async () => {
     await Blog.deleteMany({});
+    await User.deleteMany({});
     const noteObjects = helper.initialBlogs.map((blog) => new Blog(blog));
-    const promiseArray = noteObjects.map((blog) => blog.save());
+    const userObjects = helper.initialUsers.map((user) => new User(user));
+    const promiseArray = userObjects.map((user) => user.save()).concat(noteObjects.map((blog) => blog.save()));
     await Promise.all(promiseArray);
   });
   test("verifies that making an HTTP POST request to the /api/blogs url successfully creates a new blog post", async () => {
@@ -57,6 +63,7 @@ describe("tests POST /api/blogs", () => {
       author: "Daniel",
       url: "https://www.daniel.com",
       likes: 16,
+      user: helper.initialUsers[0]._id
     };
 
     await api
@@ -72,6 +79,7 @@ describe("tests POST /api/blogs", () => {
       author: "Daniel",
       url: "https://www.daniel.com",
       likes: 16,
+      user: helper.initialUsers[0]._id
     };
 
     await api
@@ -89,6 +97,7 @@ describe("tests POST /api/blogs", () => {
       title: "Hi testing twice...",
       author: "Daniel",
       url: "https://www.daniel.com",
+      user: helper.initialUsers[1]._id
     };
 
     await api
@@ -107,6 +116,7 @@ describe("tests POST /api/blogs", () => {
       author: "Daniel",
       //  url: "https://www.daniel.com",
       likes: 16,
+      user: helper.initialUsers[0]._id
     };
 
     await api
@@ -150,6 +160,7 @@ describe("tests PUT /api/blogs/:id", () => {
       author: "Daniel Lopez",
       url: "https://www.daniellopez.com",
       likes: 98,
+      user: helper.initialUsers[0]._id
     };
 
     await api

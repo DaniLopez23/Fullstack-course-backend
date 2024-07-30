@@ -1,20 +1,33 @@
 const Blog = require("../models/blog");
 const User = require("../models/user");
 
+const initialUsers = [
+    {
+        username: "daniel",
+        name: "Daniel",
+        password: "123456",
+    },
+    {
+        username: "pedro",
+        name: "Pedro",
+        password: "abcdefg"
+    }
+]
+
 const initialBlogs = [
     {
         title: "My First Travel",
         author: "Daniel",
         url: "https://www.daniel.com",
-        likes: 16
+        likes: 16,
     },
     {
         title: "Life in the City",
         author: "Pedro",
         url: "https://www.pedro.com",
-        likes: 8
+        likes: 8,
     },
-];    
+];  
 
 const blogsInDb = async () => {
     const blogs = await Blog.find({});
@@ -33,6 +46,7 @@ const usersInDb = async () => {
 
 module.exports = {
     initialBlogs,
+    initialUsers,
     blogsInDb,
     blogById,
     usersInDb
